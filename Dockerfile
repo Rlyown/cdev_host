@@ -61,7 +61,7 @@ RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak \
             libmpfr-dev \
             libmpc-dev \
             grub2 \
-            libgcc-10-dev \
+            libgcc-9-dev \
             xorriso \
             texinfo \
             bison \
