@@ -82,6 +82,8 @@ RUN ./autogen.sh \
     && make -srj4 \
     && make install
 
+WORKDIR /
+RUN rm -rf cgdb-0.7.1 cgdb-0.7.1.tar.gz
 
 # Container should expose ports.
 EXPOSE 36000
