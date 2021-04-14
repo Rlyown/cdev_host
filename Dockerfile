@@ -3,6 +3,8 @@ FROM ubuntu:20.04
 ENV LANG=en_US.UTF-8
 ENV TZ=Asia/Shanghai
 
+WORKDIR /
+ADD cgdb-0.7.1.tar.gz .
 
 RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak \
         && echo "deb http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse" > /etc/apt/sources.list \
@@ -21,7 +23,6 @@ RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak \
             gcc-multilib \
             g++ \
             gdb \
-            cgdb \
             nasm \
             automake \
             autoconf \
@@ -64,6 +65,7 @@ RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak \
             xorriso \
             texinfo \
             bison \
+            flex \
         && apt clean \
         && mkdir /var/run/sshd \
         && echo "Port 36000" >> /etc/ssh/sshd_config \
@@ -72,7 +74,14 @@ RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak \
         && useradd -s /bin/bash bingo \
         && echo "bingo:123456" | chpasswd \
         && chown -R bingo:bingo /home/bingo \
-        && echo "bingo  ALL=(ALL)       NOPASSWD:ALL" >> /etc/sudoers
+        && echo "bingo  ALL=(ALL)       NOPASSWD:ALL" >> /etc/sudoers 
+
+WORKDIR /cgdb-0.7.1/
+RUN ./autogen.sh \
+    && ./configure \
+    && make -srj4 \
+    && make install
+
 
 # Container should expose ports.
 EXPOSE 36000
