@@ -66,6 +66,7 @@ RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak \
             texinfo \
             bison \
             flex \
+            rsync \
         && apt clean \
         && mkdir /var/run/sshd \
         && echo "Port 36000" >> /etc/ssh/sshd_config \
@@ -74,7 +75,9 @@ RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak \
         && useradd -s /bin/bash bingo \
         && echo "bingo:123456" | chpasswd \
         && chown -R bingo:bingo /home/bingo \
-        && echo "bingo  ALL=(ALL)       NOPASSWD:ALL" >> /etc/sudoers 
+        && echo "bingo  ALL=(ALL)       NOPASSWD:ALL" >> /etc/sudoers \
+        && sed -ri 's/RSYNC_ENABLE=false/RSYNC_ENABLE=true/g' /etc/default/rsync
+
 
 WORKDIR /cgdb-0.7.1/
 RUN ./autogen.sh \
