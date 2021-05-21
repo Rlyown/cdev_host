@@ -68,6 +68,7 @@ RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak \
             flex \
             rsync \
             libboost-dev \
+            libyaml-cpp-dev \
         && apt clean \
         && mkdir /var/run/sshd \
         && echo "Port 36000" >> /etc/ssh/sshd_config \
