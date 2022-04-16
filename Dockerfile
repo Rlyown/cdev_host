@@ -66,6 +66,9 @@ RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak \
     parted \
     gdisk \
     udev \
+    bear \
+    meson \
+    ninja-build\
     && apt clean \
     && mkdir /var/run/sshd \
     && echo "Port 36000" >> /etc/ssh/sshd_config \
